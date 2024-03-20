@@ -76,6 +76,11 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+    
+    - name: Run CodeQL command
+      run: |
+        # Add CodeQL tools to PATH
+        export PATH="$HOME/codeql:$PATH"
 
     # Create tracking issues for CodeQL alerts
     - name: Examine and create tracking issues for CodeQL alerts
