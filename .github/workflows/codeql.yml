@@ -90,7 +90,7 @@ jobs:
               echo ${alert} | base64 --decode | jq -r ${1}
             }
 
-            # Extract necessary information from the alert
+            # Extract necessary info from the alert
             alertId=$(_jq '.number')
             queryId=$(_jq '.title')
             locationPath=$(_jq '.html_url')
@@ -118,7 +118,13 @@ jobs:
                 - [ ] test using docker to ensure that there are no changes to any"
 
               # Create a new issue
-              curl -X POST -H "Authorization: token ${{ secrets.H4LA_TOKEN }}" -d "{\"title\":\"$issueTitle\",\"body\":\"$issueBody\"}" "https://api.github.com/repos/${{ github.repository }}/issues"
+              response=$(curl -X POST -H "Authorization: token ${{ secrets.H4LA_TOKEN }}" -d "{\"title\":\"$issueTitle\",\"body\":\"$issueBody\"}" "https://api.github.com/repos/${{ github.repository }}/issues")
+
+              # Extract the issue number from the response
+              issueNumber=$(echo $response | jq -r '.number')
+
+              # Add the "ready for dev lead" label to the new issue
+              curl -X POST -H "Authorization: token ${{ secrets.H4LA_TOKEN }}" -d "{\"labels\":[\"ready for dev lead\"]}" "https://api.github.com/repos/${{ github.repository }}/issues/${issueNumber}}/labels"
             fi
           done
         fi
