@@ -1,6 +1,9 @@
 name: Schedule Friday 0700
 
 on:
+  push:
+    branches:
+      - test-issue
   workflow_dispatch:
 
 jobs:
