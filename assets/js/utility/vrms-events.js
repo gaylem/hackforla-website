@@ -14,6 +14,7 @@ export const vrmsDataFetch = (currentPage, appendMeetingTimes) => {
 
  // Helper function used for project.html and right-col-content.html to sort VRMS data by day of the week from "date" key and meeting time from "startTime" key
  function sortByDate(scheduleData, currentPage, appendMeetingTimes) {
+    {% assign vrmsData = site.data.external.vrms_data %}
     const map = {
         'Mon': 1,
         'Tue': 2,
