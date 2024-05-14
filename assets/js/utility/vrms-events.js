@@ -1,7 +1,7 @@
 ---
 ---
 
-const = "test"
+const test = "test" 
     
 {% assign vrmsData = site.data.external.vrms_data %}
 const vrmsData = JSON.parse(decodeURIComponent("{{ vrmsData | jsonify | uri_escape }}"));
